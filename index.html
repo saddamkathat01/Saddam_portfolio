@@ -24,7 +24,45 @@
         html {
             scroll-behavior: smooth;
         }
+        .font-mono { font-family: 'Fira Code', monospace; }
+        
+        /* Cursor Animation */
+        .cursor-blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
+        /* Terminal Window Styling */
+        .terminal-window {
+            background: #1E293B; /* Slate 800 */
+            color: #E2E8F0;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        .terminal-header {
+            background: #0F172A; /* Slate 900 */
+            padding: 10px 16px;
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid #334155;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background-color: #EF4444; }
+        .yellow { background-color: #F59E0B; }
+        .green { background-color: #10B981; }
+
+        /* Status Dot Pulse */
+        .status-dot {
+            height: 8px; width: 8px; background-color: #10B981; border-radius: 50%; display: inline-block;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
         /* Salesforce Style Cards */
         .sf-card {
             background: white;
@@ -78,91 +116,86 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold text-gray-800 tracking-tight">SK<span class="text-blue-600">.Dev</span></span>
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="status-dot"></span>
+                    <span class="font-mono font-bold text-gray-800">system<span class="text-blue-600">.active</span></span>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium transition">About</a>
-                    <a href="#skills" class="text-gray-600 hover:text-blue-600 font-medium transition">Skills</a>
-                    <a href="#project" class="text-gray-600 hover:text-blue-600 font-medium transition">Project</a>
-                    <a href="#experience" class="text-gray-600 hover:text-blue-600 font-medium transition">Experience</a>
-                    <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition shadow-sm font-semibold">Contact Me</a>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+                    <a href="#about" class="hover:text-blue-600">/root</a>
+                    <a href="#stack" class="hover:text-blue-600">/stack</a>
+                    <a href="#projects" class="hover:text-blue-600">/projects</a>
+                    <a href="#logs" class="hover:text-blue-600">/experience</a>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
+                <a href="#contact" class="font-mono text-xs bg-gray-900 text-white px-3 py-1.5 rounded hover:bg-gray-700 transition">
+                    $ ./contact_me.sh
+                </a>
             </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 p-4">
-            <a href="#about" class="block py-2 text-gray-600">About</a>
-            <a href="#skills" class="block py-2 text-gray-600">Skills</a>
-            <a href="#project" class="block py-2 text-gray-600">Project</a>
-            <a href="#experience" class="block py-2 text-gray-600">Experience</a>
-            <a href="#contact" class="block py-2 text-blue-600 font-bold">Contact Me</a>
         </div>
     </nav>
 
-    <section id="about" class="bg-white pb-16 pt-12 sm:pb-24 sm:pt-16 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
-            <div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-blue-50 to-transparent"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            
-            <div class="text-center mb-16">
-                <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-xs font-bold tracking-wide uppercase mb-4">Available for Hire</span>
-                <h1 class="text-5xl sm:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
-                    Saddam Kathat
-                </h1>
-                <p class="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
-                    Building the digital infrastructure for academic institutions. 
-                    <span class="text-blue-600 font-semibold">Full Stack Developer</span> specialized in high-volume data processing.
-                </p>
+    <section id="about" class="pt-12 pb-20 sm:pt-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 
-                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="https://internal.btuexam.com/" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition duration-300">
-                        View Live Project
-                    </a>
-                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-semibold rounded-lg text-gray-700 bg-white hover:bg-gray-50 shadow-sm transition duration-300">
-                        Contact Me
-                    </a>
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono mb-6">
+                        <i class="fas fa-code-branch"></i> v2.5.0 Deployment Stable
+                    </div>
+                    <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight mb-4 leading-tight">
+                        I Architect <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Logic</span>,<br>
+                        Not Just Web Pages.
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
+                        Saddam Kathat | <span class="font-semibold text-gray-900">Backend Specialist.</span><br>
+                        I build the invisible engines that power academic institutions. My code handles thousands of concurrent requests, complex SQL computations, and secure data tunnels.
+                    </p>
+                    
+                    <div class="grid grid-cols-3 gap-6 border-t border-gray-100 pt-6">
+                        <div>
+                            <span class="block text-2xl font-bold text-gray-900 font-mono">20k+</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Rows Processed</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-gray-900 font-mono">99%</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Uptime</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-gray-900 font-mono">0.2s</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Query Latency</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div class="sf-card p-8 text-center">
-                    <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600">
-                        <i class="fas fa-layer-group text-3xl"></i>
+                <div class="terminal-window h-96 flex flex-col shadow-2xl">
+                    <div class="terminal-header">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                        <div class="ml-4 text-xs text-gray-400 font-mono">bash — user@saddam-server — 80x24</div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">System Architecture</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Designing scalable PHP/PostgreSQL environments that handle thousands of concurrent student enrollments without latency.
-                    </p>
-                </div>
-                <div class="sf-card p-8 text-center">
-                    <div class="w-16 h-16 mx-auto bg-teal-100 rounded-full flex items-center justify-center mb-6 text-teal-600">
-                        <i class="fas fa-database text-3xl"></i>
+                    <div class="p-4 flex-1 overflow-y-auto" id="terminal-body" onclick="document.getElementById('cli-input').focus()">
+                        <div class="mb-2">
+                            <span class="text-green-400">➜</span> <span class="text-blue-400">~</span> <span class="text-gray-300">init portfolio_sequence</span>
+                        </div>
+                        <div class="mb-4 text-gray-400 text-xs">
+                            > Loading modules... Done.<br>
+                            > Connecting to PostgreSQL... Connected.<br>
+                            > Fetching profile data... Success.<br>
+                            > Welcome, Guest. Type <span class="text-yellow-400">'help'</span> to explore.
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Data Optimization</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Expertise in complex SQL querying, JSON data parsing, and automated logic for result calculation and marksheets.
-                    </p>
-                </div>
-                <div class="sf-card p-8 text-center">
-                    <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-6 text-purple-600">
-                        <i class="fas fa-lock text-3xl"></i>
+                    <div class="p-4 bg-slate-800 border-t border-slate-700 flex items-center">
+                        <span class="text-green-400 mr-2">➜</span>
+                        <span class="text-blue-400 mr-2">~</span>
+                        <input type="text" id="cli-input" class="bg-transparent border-none outline-none text-gray-200 font-mono w-full" placeholder="Type a command (e.g., 'skills')" autocomplete="off">
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Security & RBAC</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Implementing rigorous Role-Based Access Control, SSL encryption, and secure VPN tunneling for enterprise data safety.
-                    </p>
                 </div>
             </div>
+        </div>
+    </section>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                 
@@ -427,7 +460,60 @@
             </div>
         </div>
     </footer>
+    <script>
+        // --- TERMINAL LOGIC ---
+        const terminalBody = document.getElementById('terminal-body');
+        const cliInput = document.getElementById('cli-input');
 
+        const commands = {
+            help: "Available commands: <span class='text-yellow-300'>about</span>, <span class='text-yellow-300'>skills</span>, <span class='text-yellow-300'>contact</span>, <span class='text-yellow-300'>clear</span>",
+            about: "I am a Full Stack Developer specializing in <span class='text-blue-300'>PHP, PostgreSQL, and System Architecture</span>. I solve data problems.",
+            skills: "['PHP', 'PostgreSQL', 'JavaScript', 'Linux', 'Git', 'API Design']",
+            contact: "Email: saddamkathat219@gmail.com | Phone: +91 7877273718",
+            clear: "CLEAR_ACTION"
+        };
+
+        cliInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const input = this.value.trim().toLowerCase();
+                let output = `<div class="mb-1"><span class="text-green-400">➜</span> <span class="text-blue-400">~</span> ${this.value}</div>`;
+
+                if (commands[input]) {
+                    if (commands[input] === "CLEAR_ACTION") {
+                        terminalBody.innerHTML = '';
+                        this.value = '';
+                        return;
+                    }
+                    output += `<div class="mb-4 text-gray-300">${commands[input]}</div>`;
+                } else if (input !== "") {
+                    output += `<div class="mb-4 text-red-400">Command not found: ${input}. Type 'help' for list.</div>`;
+                }
+
+                terminalBody.innerHTML += output;
+                this.value = '';
+                terminalBody.scrollTop = terminalBody.scrollHeight; // Auto scroll to bottom
+            }
+        });
+
+        // Auto-run a script on load to grab attention
+        setTimeout(() => {
+            const introText = "whoami";
+            let i = 0;
+            const typeWriter = setInterval(() => {
+                if (i < introText.length) {
+                    cliInput.value += introText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typeWriter);
+                    // Simulate Enter Press
+                    setTimeout(() => {
+                        const event = new KeyboardEvent('keypress', {'key': 'Enter'});
+                        cliInput.dispatchEvent(event);
+                    }, 500);
+                }
+            }, 150);
+        }, 1000);
+    </script>
     <script>
         // --- DATA STORE ---
         const portfolioData = {
