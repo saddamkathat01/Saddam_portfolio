@@ -5,28 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saddam Kathat | Full Stack Developer Interactive Portfolio</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Font Awesome for Icons (No SVG allowed directly) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F9FAFB; /* Warm light gray */
-            color: #1F2937; /* Dark slate */
+            background-color: #F3F4F6; /* Salesforce-like light grey background */
+            color: #1F2937; 
         }
         
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
+        }
+
+        /* Salesforce Style Cards */
+        .sf-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sf-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #3B82F6;
         }
 
         /* Custom Scrollbar */
@@ -60,48 +71,14 @@
             }
         }
 
-        /* Card Hover Effects */
-        .hover-card {
-            transition: all 0.3s ease;
-        }
-        .hover-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Active Tab State */
-        .tab-active {
-            border-bottom: 2px solid #3B82F6;
-            color: #1D4ED8;
-            font-weight: 600;
-        }
-        .tab-inactive {
-            color: #6B7280;
-        }
-        .tab-inactive:hover {
-            color: #374151;
+        .project-module {
+            transition: all 0.2s;
         }
     </style>
-    <!-- Chosen Palette: Warm Professional - Background #F9FAFB, Text #1F2937, Primary Blue #3B82F6, Secondary Teal #14B8A6 -->
-    <!-- Application Structure Plan:
-        1. Hero Section: Immediate identity validation (Name, Role, Location) with quick contact actions.
-        2. Technical Arsenal (Skills): Interactive Bar Chart. Users toggle between "Core Tech" and "Tools/Soft Skills" to see proficiency. This proves competence before showing experience.
-        3. The Masterpiece (Project Deep Dive): Since the resume focuses on one massive project (BTU), this gets a dedicated interactive block. Users click different modules (Enrollment, Result, Security) to see technical details.
-        4. Operational Balance (Experience): A Doughnut chart visualizing the split between "Dev", "Ops", and "Support" to highlight the "Full Stack + Management" nature of the role.
-        5. Education & Credentials: Standard grid cards.
-        Rationale: This structure breaks the dense resume text into consumable, interactive chunks, allowing the recruiter to explore the "Tech" and "Ops" sides of the candidate separately.
-    -->
-    <!-- Visualization & Content Choices:
-        1. Skill Proficiency (Bar Chart): Goal: Inform. Shows relative strength in languages vs tools. Interaction: Toggle Category.
-        2. Role Distribution (Doughnut Chart): Goal: Relationships. Shows the balance of the current job (Coding vs Stakeholder mgmt).
-        3. System Architecture (Interactive Grid): Goal: Organize. Replaces a diagram. Clicking grid items updates a text description panel.
-        4. CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
-    -->
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -112,9 +89,8 @@
                     <a href="#skills" class="text-gray-600 hover:text-blue-600 font-medium transition">Skills</a>
                     <a href="#project" class="text-gray-600 hover:text-blue-600 font-medium transition">Project</a>
                     <a href="#experience" class="text-gray-600 hover:text-blue-600 font-medium transition">Experience</a>
-                    <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition shadow-sm">Contact Me</a>
+                    <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition shadow-sm font-semibold">Contact Me</a>
                 </div>
-                <!-- Mobile menu button stub -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
                         <i class="fas fa-bars text-xl"></i>
@@ -122,7 +98,6 @@
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 p-4">
             <a href="#about" class="block py-2 text-gray-600">About</a>
             <a href="#skills" class="block py-2 text-gray-600">Skills</a>
@@ -132,49 +107,140 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="about" class="bg-white py-16 sm:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
-                Saddam Kathat
-            </h1>
-            <p class="text-xl sm:text-2xl text-blue-600 font-medium mb-6">
-                Full Stack Developer & Technical Architect
-            </p>
-            <p class="max-w-2xl mx-auto text-gray-500 text-lg mb-8 leading-relaxed">
-                Results-driven developer proficient in <span class="text-gray-900 font-semibold">PHP, PostgreSQL, and JavaScript</span>. 
-                Architect of the Bikaner Technical University examination ecosystem. 
-                Expert in synthesizing technical specifications with operational needs to build scalable, secure academic infrastructures.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="https://internal.btuexam.com/" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg shadow-md transition">
-                    <i class="fas fa-external-link-alt mr-2"></i> View Live Project
-                </a>
-                <a href="https://www.linkedin.com/in/saddam-kathat-23aa522ab" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg shadow-sm transition">
-                    <i class="fab fa-linkedin mr-2 text-blue-700"></i> LinkedIn Profile
-                </a>
+    <section id="about" class="bg-white pb-16 pt-12 sm:pb-24 sm:pt-16 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+            <div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-blue-50 to-transparent"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center mb-16">
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-xs font-bold tracking-wide uppercase mb-4">Available for Hire</span>
+                <h1 class="text-5xl sm:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
+                    Saddam Kathat
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                    Building the digital infrastructure for academic institutions. 
+                    <span class="text-blue-600 font-semibold">Full Stack Developer</span> specialized in high-volume data processing.
+                </p>
+                
+                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://internal.btuexam.com/" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition duration-300">
+                        View Live Project
+                    </a>
+                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-semibold rounded-lg text-gray-700 bg-white hover:bg-gray-50 shadow-sm transition duration-300">
+                        Contact Me
+                    </a>
+                </div>
             </div>
-            <div class="mt-8 flex justify-center items-center text-sm text-gray-400 space-x-4">
-                <span><i class="fas fa-map-marker-alt mr-1"></i> Ajmer, India</span>
-                <span>|</span>
-                <span><i class="fas fa-envelope mr-1"></i> saddamkathat219@gmail.com</span>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="sf-card p-8 text-center">
+                    <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600">
+                        <i class="fas fa-layer-group text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">System Architecture</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Designing scalable PHP/PostgreSQL environments that handle thousands of concurrent student enrollments without latency.
+                    </p>
+                </div>
+                <div class="sf-card p-8 text-center">
+                    <div class="w-16 h-16 mx-auto bg-teal-100 rounded-full flex items-center justify-center mb-6 text-teal-600">
+                        <i class="fas fa-database text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Data Optimization</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Expertise in complex SQL querying, JSON data parsing, and automated logic for result calculation and marksheets.
+                    </p>
+                </div>
+                <div class="sf-card p-8 text-center">
+                    <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-6 text-purple-600">
+                        <i class="fas fa-lock text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Security & RBAC</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Implementing rigorous Role-Based Access Control, SSL encryption, and secure VPN tunneling for enterprise data safety.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <div class="lg:col-span-7">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Behind the Code</h2>
+                    <div class="prose prose-lg text-gray-600">
+                        <p class="mb-4">
+                            I am a developer who believes that <strong class="text-gray-900">good code is invisible</strong>—it just works. Based in Ajmer, India, I have spent the last year architecting the digital backbone of Bikaner Technical University.
+                        </p>
+                        <p class="mb-4">
+                            My journey isn't just about writing syntax; it's about solving operational bottlenecks. Whether it's automating the calculation of SGPA for thousands of students or securing sensitive exam data behind multi-layer authentication, I focus on building systems that are robust, logical, and user-centric.
+                        </p>
+                        <p>
+                            Beyond development, I am a strategic thinker with a keen interest in financial markets and data analysis, which allows me to approach coding problems with a unique, analytical perspective.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 pt-8 border-t border-gray-100 flex items-center space-x-6">
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> Ajmer, Rajasthan
+                        </div>
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-university text-blue-500 mr-2"></i> MCA Graduate
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="sf-card bg-gray-50 p-8 border-l-4 border-blue-600">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6 uppercase tracking-wider">Impact by the Numbers</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between items-end mb-1">
+                                    <span class="text-4xl font-extrabold text-blue-600">20,000+</span>
+                                    <span class="text-sm font-semibold text-gray-500 uppercase">Records</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Student enrollment data processed & managed.</p>
+                            </div>
+                            
+                            <div class="w-full bg-gray-200 h-px"></div>
+
+                            <div>
+                                <div class="flex justify-between items-end mb-1">
+                                    <span class="text-4xl font-extrabold text-teal-600">99.9%</span>
+                                    <span class="text-sm font-semibold text-gray-500 uppercase">Accuracy</span>
+                                </div>
+                                <p class="text-sm text-gray-600">In automated result calculations and marksheets.</p>
+                            </div>
+
+                            <div class="w-full bg-gray-200 h-px"></div>
+
+                            <div>
+                                <div class="flex justify-between items-end mb-1">
+                                    <span class="text-4xl font-extrabold text-purple-600">3</span>
+                                    <span class="text-sm font-semibold text-gray-500 uppercase">Modules</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Major systems architected (Enrollment, Exam, Result).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Skills Analytics Section -->
-    <section id="skills" class="py-16 bg-gray-50 border-t border-gray-200">
+    <section id="skills" class="py-16 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900">Technical Arsenal</h2>
                 <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
-                    A comprehensive breakdown of the languages, frameworks, and tools utilized to deliver high-performance enterprise solutions. Toggle the categories to explore the tech stack.
+                    A comprehensive breakdown of the languages, frameworks, and tools utilized to deliver high-performance enterprise solutions.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                <!-- Controls -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 lg:col-span-1">
+                <div class="sf-card p-6 lg:col-span-1">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Category Filter</h3>
                     <div class="space-y-2">
                         <button onclick="updateSkillChart('core')" class="skill-btn w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 focus:outline-none transition flex justify-between items-center group bg-blue-50 text-blue-700 font-medium" id="btn-core">
@@ -194,13 +260,12 @@
                     <div class="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-100">
                         <h4 class="text-sm font-bold text-yellow-800 mb-2"><i class="fas fa-lightbulb mr-1"></i> Highlight</h4>
                         <p id="skill-highlight-text" class="text-sm text-yellow-800">
-                            Expertise in building Role-Based Access Control systems using PHP and PostgreSQL.
+                            High proficiency in building responsive frontends and robust server-side logic.
                         </p>
                     </div>
                 </div>
 
-                <!-- Chart Area -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 lg:col-span-2">
+                <div class="sf-card p-6 lg:col-span-2">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-semibold text-gray-800" id="chart-title">Core Development Skills</h3>
                         <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Production Ready</span>
@@ -213,23 +278,20 @@
         </div>
     </section>
 
-    <!-- Project Deep Dive Section -->
-    <section id="project" class="py-16 bg-white border-t border-gray-200">
+    <section id="project" class="py-16 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">Featured Project</span>
                 <h2 class="text-3xl font-bold text-gray-900 mt-2">Bikaner Technical University Portal</h2>
                 <p class="mt-4 text-gray-600 max-w-3xl mx-auto">
-                    An end-to-end examination ecosystem managing thousands of students. Explore the system architecture by clicking the interactive modules below to reveal technical implementation details.
+                    An end-to-end examination ecosystem. Explore the system architecture by clicking the interactive modules below.
                 </p>
             </div>
 
-            <!-- Interactive Architecture Diagram (HTML/CSS Grid) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 
-                <!-- Diagram Side -->
                 <div class="lg:col-span-5 grid grid-cols-1 gap-4">
-                    <button onclick="showProjectDetail('enrollment')" class="project-module p-4 rounded-lg border-l-4 border-blue-500 bg-gray-50 hover:bg-white shadow-sm hover:shadow-md transition text-left focus:outline-none ring-2 ring-transparent focus:ring-blue-200" id="module-enrollment">
+                    <button onclick="showProjectDetail('enrollment')" class="project-module sf-card p-4 border-l-4 border-blue-500 shadow-sm text-left focus:outline-none ring-2 ring-transparent focus:ring-blue-200" id="module-enrollment">
                         <div class="flex justify-between items-center">
                             <h4 class="font-bold text-gray-800">1. Enrollment System</h4>
                             <i class="fas fa-user-graduate text-blue-500"></i>
@@ -237,7 +299,7 @@
                         <p class="text-sm text-gray-500 mt-1">Student registration & College verification</p>
                     </button>
 
-                    <button onclick="showProjectDetail('security')" class="project-module p-4 rounded-lg border-l-4 border-purple-500 bg-gray-50 hover:bg-white shadow-sm hover:shadow-md transition text-left focus:outline-none ring-2 ring-transparent focus:ring-purple-200" id="module-security">
+                    <button onclick="showProjectDetail('security')" class="project-module sf-card bg-gray-50 border-0 hover:bg-white p-4 text-left focus:outline-none ring-2 ring-transparent focus:ring-purple-200" id="module-security">
                         <div class="flex justify-between items-center">
                             <h4 class="font-bold text-gray-800">2. Security & RBAC</h4>
                             <i class="fas fa-shield-alt text-purple-500"></i>
@@ -245,7 +307,7 @@
                         <p class="text-sm text-gray-500 mt-1">Multi-tier auth & SSL encryption</p>
                     </button>
 
-                    <button onclick="showProjectDetail('evaluation')" class="project-module p-4 rounded-lg border-l-4 border-teal-500 bg-gray-50 hover:bg-white shadow-sm hover:shadow-md transition text-left focus:outline-none ring-2 ring-transparent focus:ring-teal-200" id="module-evaluation">
+                    <button onclick="showProjectDetail('evaluation')" class="project-module sf-card bg-gray-50 border-0 hover:bg-white p-4 text-left focus:outline-none ring-2 ring-transparent focus:ring-teal-200" id="module-evaluation">
                         <div class="flex justify-between items-center">
                             <h4 class="font-bold text-gray-800">3. Evaluation Engine</h4>
                             <i class="fas fa-chart-line text-teal-500"></i>
@@ -253,7 +315,7 @@
                         <p class="text-sm text-gray-500 mt-1">Marks filling & Result processing</p>
                     </button>
 
-                    <button onclick="showProjectDetail('ops')" class="project-module p-4 rounded-lg border-l-4 border-orange-500 bg-gray-50 hover:bg-white shadow-sm hover:shadow-md transition text-left focus:outline-none ring-2 ring-transparent focus:ring-orange-200" id="module-ops">
+                    <button onclick="showProjectDetail('ops')" class="project-module sf-card bg-gray-50 border-0 hover:bg-white p-4 text-left focus:outline-none ring-2 ring-transparent focus:ring-orange-200" id="module-ops">
                         <div class="flex justify-between items-center">
                             <h4 class="font-bold text-gray-800">4. Data Ops</h4>
                             <i class="fas fa-server text-orange-500"></i>
@@ -262,34 +324,30 @@
                     </button>
                 </div>
 
-                <!-- Details Display Side -->
-                <div class="lg:col-span-7 bg-white rounded-xl shadow-lg border border-gray-100 p-8 relative overflow-hidden">
+                <div class="lg:col-span-7 sf-card p-8 relative overflow-hidden bg-white">
                     <div class="absolute top-0 right-0 p-4 opacity-10">
                         <i id="detail-bg-icon" class="fas fa-code text-9xl"></i>
                     </div>
                     
                     <div id="project-detail-content">
-                        <!-- Dynamic Content Loaded via JS -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience & Impact Section -->
-    <section id="experience" class="py-16 bg-gray-50 border-t border-gray-200">
+    <section id="experience" class="py-16 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">Professional Experience & Impact</h2>
+                <h2 class="text-3xl font-bold text-gray-900">Experience & Impact</h2>
                 <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
-                    Full Stack Developer at Bikaner Projects (BTU). This section visualizes the dual nature of my role: Technical Architecture vs. Operational Management.
+                    Visualizing the dual nature of my role: Technical Architecture vs. Operational Management.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <!-- Timeline List -->
                 <div class="space-y-6">
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-600">
+                    <div class="sf-card p-6 border-l-4 border-blue-600">
                         <div class="flex justify-between items-start">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900">Full Stack Developer</h3>
@@ -305,14 +363,13 @@
                         </ul>
                     </div>
 
-                    <!-- Education Mini-Cards -->
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <div class="sf-card p-4">
                             <h4 class="font-bold text-gray-800 text-sm">MCA</h4>
                             <p class="text-xs text-gray-500">Star Infotech College</p>
                             <p class="text-xs text-gray-400 mt-1">2023 - 2025</p>
                         </div>
-                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <div class="sf-card p-4">
                             <h4 class="font-bold text-gray-800 text-sm">B.Sc.</h4>
                             <p class="text-xs text-gray-500">M.D.S. University</p>
                             <p class="text-xs text-gray-400 mt-1">2020 - 2023 (67%)</p>
@@ -320,8 +377,7 @@
                     </div>
                 </div>
 
-                <!-- Impact Chart -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+                <div class="sf-card p-6 flex flex-col items-center">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Role Breakdown</h3>
                     <p class="text-xs text-gray-500 mb-6 text-center">Percentage of effort across critical domains</p>
                     <div class="chart-container" style="height: 250px; max-width: 350px;">
@@ -337,7 +393,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="contact" class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -373,7 +428,6 @@
         </div>
     </footer>
 
-    <!-- Logic Script -->
     <script>
         // --- DATA STORE ---
         const portfolioData = {
@@ -549,11 +603,20 @@
             // Update UI Active State
             document.querySelectorAll('.project-module').forEach(btn => {
                 btn.classList.remove('bg-white', 'shadow-md', 'ring-2');
-                btn.classList.add('bg-gray-50');
+                btn.classList.remove('border-l-4'); // Remove all borders initially
+                btn.classList.add('bg-gray-50', 'border-0'); // Reset to flat
             });
+
+            // Add active styles
             const activeBtn = document.getElementById(`module-${moduleId}`);
-            activeBtn.classList.remove('bg-gray-50');
+            activeBtn.classList.remove('bg-gray-50', 'border-0');
             activeBtn.classList.add('bg-white', 'shadow-md');
+            
+            // Re-add specific color border based on module
+            if(moduleId === 'enrollment') activeBtn.classList.add('border-l-4', 'border-blue-500');
+            if(moduleId === 'security') activeBtn.classList.add('border-l-4', 'border-purple-500');
+            if(moduleId === 'evaluation') activeBtn.classList.add('border-l-4', 'border-teal-500');
+            if(moduleId === 'ops') activeBtn.classList.add('border-l-4', 'border-orange-500');
 
             // Update Content with Fade Effect
             contentDiv.style.opacity = 0;
@@ -575,7 +638,7 @@
                     </div>
                 `;
                 bgIcon.className = `fas ${data.icon} text-9xl transition-all duration-500`;
-                bgIcon.style.color = data.colorClass.replace('text-', 'var(--tw-text-opacity: 0.1); color: '); // Hacky way to set opacity color or just let CSS handle it via classes if defined
+                bgIcon.style.color = data.colorClass.replace('text-', 'var(--tw-text-opacity: 0.1); color: '); 
                 
                 contentDiv.style.opacity = 1;
             }, 150);
@@ -590,7 +653,7 @@
                 data: {
                     labels: ['Architecture & Dev', 'Data Ops & Analysis', 'Client Liaison/Support'],
                     datasets: [{
-                        data: [50, 30, 20], // Estimated split based on resume content
+                        data: [50, 30, 20], 
                         backgroundColor: [
                             'rgba(59, 130, 246, 0.8)', // Blue
                             'rgba(245, 158, 11, 0.8)', // Orange
