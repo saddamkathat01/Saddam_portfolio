@@ -93,6 +93,7 @@
             
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600 items-center">
                 <a href="#about" class="hover:text-blue-600 transition">/profile</a>
+                <a href="#skills" class="hover:text-blue-600 transition">/stack</a>
                 <a href="#projects" class="hover:text-blue-600 transition">/work</a>
                 <a href="#experience" class="hover:text-blue-600 transition">/career</a>
                 
@@ -401,6 +402,12 @@
     </footer>
 
     <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
         // --- 1. TERMINAL LOGIC ---
         const terminalBody = document.getElementById('terminal-body');
         const cliInput = document.getElementById('cli-input');
